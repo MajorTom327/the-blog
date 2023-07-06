@@ -9,22 +9,25 @@ contract Blog is Ownable {
         uint256 timestamp;
     }
 
-    Post[] public posts;
+    mapping(uint256 => Post) public posts;
+    uint256 lastPostIndex;
 
-    event PostCreated(string ipfsUrl, uint256 timestamp);
+    event PostCreated(uint256 id, string ipfsUrl, uint256 timestamp);
 
     function createPost(string memory _ipfsUrl) public onlyOwner {
-        posts.push(Post(_ipfsUrl, block.timestamp));
-        emit PostCreated(_ipfsUrl, block.timestamp);
+      posts[lastPostIndex] = Post(_ipfsUrl, block.timestamp);
+      lastPostIndex++;
+      emit PostCreated(lastPostIndex - 1, _ipfsUrl, block.timestamp);
     }
 
     function getPost(uint256 _index) public view returns ( string memory ipfsUrl, uint256 timestamp) {
-        Post memory post = posts[_index];
-        return (post.ipfsUrl, post.timestamp);
+      require(_index < lastPostIndex, "Index out of bounds");
+      Post memory post = posts[_index];
+      return (post.ipfsUrl, post.timestamp);
     }
 
     function getPostsCount() public view returns (uint256) {
-        return posts.length;
+      return lastPostIndex;
     }
 
 }
