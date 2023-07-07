@@ -1,6 +1,6 @@
 #!/bin/bash
+# From Anvil
 MNEMONIC=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
-# MNEMONIC=0xbbf8012ad3548efe75e1aa729d1de86461684d1ec2050934d96b8af3f6bc35ae
 
 anvil -m $MNEMONIC
 #  --sender 0xf091e8e591695A11579f0A70899CD25a317211C4
