@@ -66,7 +66,7 @@ contract Blog is Ownable {
         address _owner = owner();
         uint256 amount = address(this).balance;
 
-        (bool sent, ) =  _owner.call{value: amount}("");
+        (bool sent,) =  _owner.call{value: amount}("");
 
         require(sent, "Failed to send Ether");
     }
