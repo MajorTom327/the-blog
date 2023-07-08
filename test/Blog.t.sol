@@ -108,4 +108,42 @@ contract BlogTest is Test {
 
       assertEq(title, newTitle);
     }
+
+    // function testDonation() public {
+    //   Blog blog = new Blog();
+    //   address blogOwner = blog.owner();
+
+    //   address user = address(0xdeadbeef);
+
+    //   vm.startPrank(user);
+    //   vm.deal(blogOwner, 1 ether);
+    //   vm.deal(user, 1 ether);
+
+    //   address(blog).call{value: 1 ether}("");
+
+    //   vm.stopPrank();
+
+    //   assertEq(blogOwner.balance, 2 ether);
+
+
+
+
+
+
+    // }
+
+    function testWithdraw() public {
+      Blog blog = new Blog();
+
+      uint256 initialBalance = address(this).balance;
+      assertEq(address(blog).balance, 0);
+
+      vm.deal(address(blog), 1 ether);
+      assertEq(address(blog).balance, 1 ether);
+
+      blog.withdraw();
+
+      assertEq(address(blog).balance, 0);
+      assertEq(address(this).balance, initialBalance + 1 ether);
+    }
 }
